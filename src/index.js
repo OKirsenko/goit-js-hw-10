@@ -23,7 +23,9 @@ function onInput() {
     countryListEl.innerHTML = '';
     return;
   }
-  fetchCountries(inputEl.value.trim()).then(addingToList);
+  fetchCountries(inputEl.value.trim())
+    .then(addingToList)
+    .catch(error => Notiflix.Notify.failure('Oops, there is no country with that name'));
 }
 
 function addingToList(countries) {
@@ -31,8 +33,6 @@ function addingToList(countries) {
     oneCoountryMarkUp(countries);
   } else if (countries.length > 10) {
     Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
-  } else if (countries.status === 404) {
-    Notiflix.Notify.failure('Oops, there is no country with that name');
   } else {
     manyCountriesMarkUp(countries);
   }
@@ -57,9 +57,8 @@ function oneCoountryMarkUp(country) {
 function manyCountriesMarkUp(countries) {
   const markup = countries.map(
     country =>
-      `<li class="countries-list"><img src="${country.flags.svg}" class="list-images">${country.name.official}</li>`
+      `<li class="countries-list"><img src="${country.flags.svg}" class="list-images">${country.name.official}</li>`,
   );
-
-  countryListEl.innerHTML = markup;
   countryInfoEl.innerHTML = '';
+  countryListEl.innerHTML = markup;
 }
