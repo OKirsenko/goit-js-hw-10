@@ -57,7 +57,7 @@ function oneCoountryMarkUp(country) {
 function manyCountriesMarkUp(countries) {
   const markup = countries.map(
     country =>
-      `<li class="countries-list"><img src="${country.flags.svg}" class="list-images">${country.name.official}</li>`,
+      `<li class="countries-list"><img src="${country.flags.svg}" class="list-images">${country.name.official}</li>`
   );
 
   countryListEl.innerHTML = markup;
