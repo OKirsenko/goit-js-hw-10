@@ -1,6 +1,7 @@
 import './css/styles.css';
 import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
+import fetchCountries from './fetch';
 
 Notiflix.Notify.init({
   width: '350px',
@@ -13,7 +14,6 @@ const inputEl = document.querySelector('#search-box');
 const countryListEl = document.querySelector('.country-list');
 const countryInfoEl = document.querySelector('.country-info');
 const DEBOUNCE_DELAY = 300;
-const API_URL = `https://restcountries.com/v3.1/name/`;
 
 inputEl.addEventListener('input', debounce(onInput, DEBOUNCE_DELAY));
 
@@ -26,11 +26,6 @@ function onInput() {
   fetchCountries(inputEl.value.trim()).then(addingToList);
 }
 
-function fetchCountries(name) {
-  return fetch(`${API_URL}${name}?fields=name,capital,population,flags,languages`).then(response =>
-    response.json(),
-  );
-}
 function addingToList(countries) {
   if (countries.length === 1) {
     oneCoountryMarkUp(countries);
